@@ -1,0 +1,22 @@
+{
+  "name": "friends",
+  "authors": [
+    "Thiago B. Negri <dev@tnegri.com>"
+  ],
+  "description": "Personal Relationship Management",
+  "main": "index.html",
+  "moduleType": [],
+  "license": "Proprietary",
+  "homepage": "http://tnegri.com",
+  "private": true,
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "react": "~0.14.5"
+  }
+}

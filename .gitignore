@@ -1,0 +1,2 @@
+# Ignore components installed by bower
+bower_components
