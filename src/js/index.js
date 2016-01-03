@@ -3,7 +3,7 @@
 
   function onDeviceReady () {
     ReactDOM.render(
-      <h1>Hello, world!</h1>,
+      <Friend friend={fran} />,
       document.getElementById('app')
     )
   }
