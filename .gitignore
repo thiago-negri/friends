@@ -1,2 +1,6 @@
 # Ignore components installed by bower
 bower_components
+
+# Ignore things created by Cordova
+platforms
+plugins
