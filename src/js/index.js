@@ -2,19 +2,23 @@
   document.addEventListener('deviceready', onDeviceReady, false)
 
   function onDeviceReady () {
+    showFriendList()
+  }
+
+  function showFriendList () {
     ReactDOM.render(
       <Layout title='Friends List'>
         <FriendList
           friends={[fran, carol]}
-          onSelect={onFriendSelect} />
+          onSelect={showFriend} />
       </Layout>,
       document.getElementById('app')
     )
   }
 
-  function onFriendSelect (friend) {
+  function showFriend (friend) {
     ReactDOM.render(
-      <Layout title='Friend'>
+      <Layout title='Friend' onBack={showFriendList}>
         <Friend friend={friend} />
       </Layout>,
       document.getElementById('app')
