@@ -3,16 +3,20 @@
 
   function onDeviceReady () {
     ReactDOM.render(
-      <FriendList
-        friends={[fran, carol]}
-        onSelect={onFriendSelect} />,
+      <Layout title='Friends List'>
+        <FriendList
+          friends={[fran, carol]}
+          onSelect={onFriendSelect} />
+      </Layout>,
       document.getElementById('app')
     )
   }
 
   function onFriendSelect (friend) {
     ReactDOM.render(
-      <Friend friend={friend} />,
+      <Layout title='Friend'>
+        <Friend friend={friend} />
+      </Layout>,
       document.getElementById('app')
     )
   }
