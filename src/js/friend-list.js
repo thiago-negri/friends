@@ -13,7 +13,7 @@ var FriendList = (function () {
   return React.createClass({
     render: function () {
       var index = 0
-      var friends = this.props.friends.map(function (friend) {
+      var friends = safeMap(this.props.friends, function (friend) {
         var currentIndex = index
         index += 1
         return (

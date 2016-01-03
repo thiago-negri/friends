@@ -3,7 +3,7 @@ var Friend = (function () {
 
   return React.createClass({
     render: function () {
-      var dates = this.props.friend.dates.map(function (date) {
+      var dates = safeMap(this.props.friend.dates, function (date) {
         return (
           <div className='friendDate'>
             <span className='friendDateCalendar'>{date.date}</span>
@@ -12,12 +12,14 @@ var Friend = (function () {
           </div>
         )
       })
-      var likes = this.props.friend.likes.map(function (like) {
+
+      var likes = safeMap(this.props.friend.likes, function (like) {
         return (
           <li className='friendLike'>{like}</li>
         )
       })
-      var dislikes = this.props.friend.dislikes.map(function (dislike) {
+
+      var dislikes = safeMap(this.props.friend.dislikes, function (dislike) {
         return (
           <li className='friendDislike'>{dislike}</li>
         )
