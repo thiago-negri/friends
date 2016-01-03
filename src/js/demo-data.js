@@ -21,3 +21,10 @@ var fran = {
     'Pedaços visíveis de cebola'
   ]
 }
+
+var carol = {
+  name: 'Caroline Milbratz',
+  dislikes: [
+    'Salsinha'
+  ]
+}
