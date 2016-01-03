@@ -3,7 +3,7 @@
 
   function onDeviceReady () {
     ReactDOM.render(
-      <Friend friend={fran} />,
+      <FriendList friends={[fran, carol]} />,
       document.getElementById('app')
     )
   }
