@@ -2,6 +2,9 @@
   document.addEventListener('deviceready', onDeviceReady, false)
 
   function onDeviceReady () {
-    window.alert('Hello World')
+    ReactDOM.render(
+      <h1>Hello, world!</h1>,
+      document.getElementById('app')
+    )
   }
 }())
