@@ -2,32 +2,53 @@ var Friend = (function () {
   'use strict'
 
   return React.createClass({
+    getInitialState: function () {
+      return {
+        name: this.props.friend.name,
+        dates: this.props.friend.dates,
+        likes: this.props.friend.likes,
+        dislikes: this.props.friend.dislikes
+      }
+    },
     render: function () {
-      var dates = safeMap(this.props.friend.dates, function (date) {
+      var dates = safeMap(this.state.dates, function (date, index) {
         return (
           <div className='friendDate'>
-            <span className='friendDateCalendar'>{date.date}</span>
-            &nbsp;
-            <span classNmae='friendDateLabel'>{date.label}</span>
+            <input type='date' className='friendDateCalendar' value={date.date}
+              onChange={this.handleDateCalendarChange}
+              data-dates-index={index} />
+            <input type='text' className='friendDateLabel' value={date.label}
+              onChange={this.handleDateLabelChange}
+              data-dates-index={index} />
           </div>
         )
-      })
+      }.bind(this))
 
-      var likes = safeMap(this.props.friend.likes, function (like) {
+      var likes = safeMap(this.state.likes, function (like, index) {
         return (
-          <li className='friendLike'>{like}</li>
+          <li className='friendLike'>
+            <input type='text' className='friendLikeLabel' value={like}
+              onChange={this.handleLikeLabelChange}
+              data-likes-index={index} />
+          </li>
         )
-      })
+      }.bind(this))
 
-      var dislikes = safeMap(this.props.friend.dislikes, function (dislike) {
+      var dislikes = safeMap(this.state.dislikes, function (dislike, index) {
         return (
-          <li className='friendDislike'>{dislike}</li>
+          <li className='friendDislike'>
+            <input type='text' className='friendDislikeLabel' value={dislike}
+              onChange={this.handleDislikeLabelChange}
+              data-dislikes-index={index} />
+          </li>
         )
-      })
+      }.bind(this))
 
       return (
         <div className='friend'>
-          <h2 className='friendName'>{this.props.friend.name}</h2>
+          <input className='friendName' type='text'
+            value={this.state.name}
+            onChange={this.handleNameChange} />
           <div className='friendDates'>
             <h3><i className='fa fa-calendar'></i></h3>
             {dates}
@@ -46,6 +67,30 @@ var Friend = (function () {
           </div>
         </div>
       )
+    },
+    handleNameChange: function (event) {
+      this.props.friend.name = event.target.value
+      this.setState(this.getInitialState())
+    },
+    handleDateCalendarChange: function (event) {
+      var index = event.target.dataset.datesIndex
+      this.props.friend.dates[index].date = event.target.value
+      this.setState(this.getInitialState())
+    },
+    handleDateLabelChange: function (event) {
+      var index = event.target.dataset.datesIndex
+      this.props.friend.dates[index].label = event.target.value
+      this.setState(this.getInitialState())
+    },
+    handleLikeLabelChange: function (event) {
+      var index = event.target.dataset.likesIndex
+      this.props.friend.likes[index] = event.target.value
+      this.setState(this.getInitialState())
+    },
+    handleDislikeLabelChange: function (event) {
+      var index = event.target.dataset.dislikesIndex
+      this.props.friend.dislikes[index] = event.target.value
+      this.setState(this.getInitialState())
     }
   })
 }())
