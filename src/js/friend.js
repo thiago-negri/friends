@@ -15,9 +15,11 @@ var Friend = (function () {
         return (
           <div className='friendDate'>
             <input type='date' className='friendDateCalendar' value={date.date}
+              placeholder='1989-08-27'
               onChange={this.handleDateCalendarChange}
               data-dates-index={index} />
             <input type='text' className='friendDateLabel' value={date.label}
+              placeholder='Birthdate'
               onChange={this.handleDateLabelChange}
               data-dates-index={index} />
           </div>
@@ -51,6 +53,10 @@ var Friend = (function () {
             onChange={this.handleNameChange} />
           <div className='friendDates'>
             <h3><i className='fa fa-calendar'></i></h3>
+            <input type='button' className='friendDatesAddButton'
+              onClick={this.handleDatesAddClick}>
+              <i className='fa fa-plus'></i>
+            </input>
             {dates}
           </div>
           <div className='friendLikes'>
@@ -70,6 +76,18 @@ var Friend = (function () {
     },
     handleNameChange: function (event) {
       this.props.friend.name = event.target.value
+      this.setState(this.getInitialState())
+    },
+    handleDatesAddClick: function (event) {
+      var now = new Date()
+      var year = now.getFullYear()
+      var month = now.getMonth() + 1
+      var day = now.getDate()
+      var fix = function (d) { return (d < 10 ? '0' + d : '' + d) }
+      var nowAsString = year + '-' + fix(month) + '-' + fix(day)
+      this.props.friend.dates.unshift({
+        date: nowAsString
+      })
       this.setState(this.getInitialState())
     },
     handleDateCalendarChange: function (event) {
