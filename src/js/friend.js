@@ -44,8 +44,13 @@ var Friend = (function () {
         return (
           <li className='friendLike'>
             <input type='text' className='friendLikeLabel' value={like}
+              placeholder='Icecream'
               onChange={this.handleLikeLabelChange}
               data-likes-index={index} />
+            <button type='button' onClick={this.handleLikeDestroy}
+              data-likes-index={index}>
+              <i className='fa fa-trash-o'></i>
+            </button>
           </li>
         )
       }.bind(this))
@@ -75,6 +80,10 @@ var Friend = (function () {
           </div>
           <div className='friendLikes'>
             <h3><i className='fa fa-thumbs-o-up'></i></h3>
+            <button type='button' className='friendLikesAddButton'
+              onClick={this.handleLikesAddClick}>
+              <i className='fa fa-plus'></i>
+            </button>
             <ul className='friendLikesList'>
               {likes}
             </ul>
@@ -122,9 +131,22 @@ var Friend = (function () {
       this.props.friend.dates.splice(index, 1)
       this.setState(this.getInitialState())
     },
+    handleLikesAddClick: function (event) {
+      var newLike = ''
+      this.props.friend.likes.unshift(newLike)
+      this.setState(this.getInitialState())
+    },
     handleLikeLabelChange: function (event) {
       var index = event.target.dataset.likesIndex
       this.props.friend.likes[index] = event.target.value
+      this.setState(this.getInitialState())
+    },
+    handleLikeDestroy: function (event) {
+      var index = event.target.dataset.likesIndex
+      if (typeof index === 'undefined') {
+        index = event.target.parentNode.dataset.likesIndex
+      }
+      this.props.friend.likes.splice(index, 1)
       this.setState(this.getInitialState())
     },
     handleDislikeLabelChange: function (event) {
