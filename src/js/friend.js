@@ -32,6 +32,10 @@ var Friend = (function () {
               placeholder='Birthdate'
               onChange={this.handleDateLabelChange}
               data-dates-index={index} />
+            <button type='button' onClick={this.handleDateDestroy}
+              data-dates-index={index}>
+              <i className='fa fa-trash-o'></i>
+            </button>
           </div>
         )
       }.bind(this))
@@ -108,6 +112,14 @@ var Friend = (function () {
     handleDateLabelChange: function (event) {
       var index = event.target.dataset.datesIndex
       this.props.friend.dates[index].label = event.target.value
+      this.setState(this.getInitialState())
+    },
+    handleDateDestroy: function (event) {
+      var index = event.target.dataset.datesIndex
+      if (typeof index === 'undefined') {
+        index = event.target.parentNode.dataset.datesIndex
+      }
+      this.props.friend.dates.splice(index, 1)
       this.setState(this.getInitialState())
     },
     handleLikeLabelChange: function (event) {
