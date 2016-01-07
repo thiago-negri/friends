@@ -53,10 +53,10 @@ var Friend = (function () {
             onChange={this.handleNameChange} />
           <div className='friendDates'>
             <h3><i className='fa fa-calendar'></i></h3>
-            <input type='button' className='friendDatesAddButton'
+            <button type='button' className='friendDatesAddButton'
               onClick={this.handleDatesAddClick}>
               <i className='fa fa-plus'></i>
-            </input>
+            </button>
             {dates}
           </div>
           <div className='friendLikes'>
