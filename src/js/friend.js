@@ -59,8 +59,13 @@ var Friend = (function () {
         return (
           <li className='friendDislike'>
             <input type='text' className='friendDislikeLabel' value={dislike}
+              placeholder='Smoking'
               onChange={this.handleDislikeLabelChange}
               data-dislikes-index={index} />
+            <button type='button' onClick={this.handleDislikeDestroy}
+              data-dislikes-index={index}>
+              <i className='fa fa-trash-o'></i>
+            </button>
           </li>
         )
       }.bind(this))
@@ -90,6 +95,10 @@ var Friend = (function () {
           </div>
           <div className='friendDislikes'>
             <h3><i className='fa fa-thumbs-o-down'></i></h3>
+            <button type='button' className='friendDislikesAddButton'
+              onClick={this.handleDislikesAddClick}>
+              <i className='fa fa-plus'></i>
+            </button>
             <ul className='friendDislikesList'>
               {dislikes}
             </ul>
@@ -149,9 +158,22 @@ var Friend = (function () {
       this.props.friend.likes.splice(index, 1)
       this.setState(this.getInitialState())
     },
+    handleDislikesAddClick: function (event) {
+      var newDislike = ''
+      this.props.friend.dislikes.unshift(newDislike)
+      this.setState(this.getInitialState())
+    },
     handleDislikeLabelChange: function (event) {
       var index = event.target.dataset.dislikesIndex
       this.props.friend.dislikes[index] = event.target.value
+      this.setState(this.getInitialState())
+    },
+    handleDislikeDestroy: function (event) {
+      var index = event.target.dataset.dislikesIndex
+      if (typeof index === 'undefined') {
+        index = event.target.parentNode.dataset.dislikesIndex
+      }
+      this.props.friend.dislikes.splice(index, 1)
       this.setState(this.getInitialState())
     }
   })
