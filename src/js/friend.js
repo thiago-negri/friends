@@ -3,12 +3,22 @@ var Friend = (function () {
 
   return React.createClass({
     getInitialState: function () {
-      return {
+      var state = {
         name: this.props.friend.name,
-        dates: this.props.friend.dates,
-        likes: this.props.friend.likes,
-        dislikes: this.props.friend.dislikes
+        dates: safeMap(this.props.friend.dates, function (date) {
+          return {
+            date: date.date,
+            label: date.label
+          }
+        }),
+        likes: safeMap(this.props.friend.likes, function (like) {
+          return like
+        }),
+        dislikes: safeMap(this.props.friend.dislikes, function (dislike) {
+          return dislike
+        })
       }
+      return state
     },
     render: function () {
       var dates = safeMap(this.state.dates, function (date, index) {
