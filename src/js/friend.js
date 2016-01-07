@@ -32,41 +32,25 @@ var Friend = (function () {
               placeholder='Birthdate'
               onChange={this.handleDateLabelChange}
               data-dates-index={index} />
-            <button type='button' onClick={this.handleDateDestroy}
-              data-dates-index={index}>
-              <i className='fa fa-trash-o'></i>
-            </button>
           </div>
         )
       }.bind(this))
 
       var likes = safeMap(this.state.likes, function (like, index) {
         return (
-          <li className='friendLike'>
-            <input type='text' className='friendLikeLabel' value={like}
-              placeholder='Icecream'
-              onChange={this.handleLikeLabelChange}
-              data-likes-index={index} />
-            <button type='button' onClick={this.handleLikeDestroy}
-              data-likes-index={index}>
-              <i className='fa fa-trash-o'></i>
-            </button>
-          </li>
+          <input type='text' className='friendLikeLabel' value={like}
+            placeholder='Icecream'
+            onChange={this.handleLikeLabelChange}
+            data-likes-index={index} />
         )
       }.bind(this))
 
       var dislikes = safeMap(this.state.dislikes, function (dislike, index) {
         return (
-          <li className='friendDislike'>
-            <input type='text' className='friendDislikeLabel' value={dislike}
-              placeholder='Smoking'
-              onChange={this.handleDislikeLabelChange}
-              data-dislikes-index={index} />
-            <button type='button' onClick={this.handleDislikeDestroy}
-              data-dislikes-index={index}>
-              <i className='fa fa-trash-o'></i>
-            </button>
-          </li>
+          <input type='text' className='friendDislikeLabel' value={dislike}
+            placeholder='Smoking'
+            onChange={this.handleDislikeLabelChange}
+            data-dislikes-index={index} />
         )
       }.bind(this))
 
@@ -75,34 +59,15 @@ var Friend = (function () {
           <input className='friendName' type='text'
             value={this.state.name}
             onChange={this.handleNameChange} />
-          <div className='friendDates'>
-            <h3><i className='fa fa-calendar'></i></h3>
-            <button type='button' className='friendDatesAddButton'
-              onClick={this.handleDatesAddClick}>
-              <i className='fa fa-plus'></i>
-            </button>
-            {dates}
-          </div>
-          <div className='friendLikes'>
-            <h3><i className='fa fa-thumbs-o-up'></i></h3>
-            <button type='button' className='friendLikesAddButton'
-              onClick={this.handleLikesAddClick}>
-              <i className='fa fa-plus'></i>
-            </button>
-            <ul className='friendLikesList'>
-              {likes}
-            </ul>
-          </div>
-          <div className='friendDislikes'>
-            <h3><i className='fa fa-thumbs-o-down'></i></h3>
-            <button type='button' className='friendDislikesAddButton'
-              onClick={this.handleDislikesAddClick}>
-              <i className='fa fa-plus'></i>
-            </button>
-            <ul className='friendDislikesList'>
-              {dislikes}
-            </ul>
-          </div>
+          <FriendSection title='Dates' icon='fa fa-calendar'
+            items={dates} onCreate={this.handleDatesAddClick}
+            onDestroy={this.handleDateDestroy} />
+          <FriendSection title='Likes' icon='fa fa-thumbs-o-up'
+            items={likes} onCreate={this.handleLikesAddClick}
+            onDestroy={this.handleLikeDestroy} />
+          <FriendSection title='Dislikes' icon='fa fa-thumbs-o-down'
+            items={dislikes} onCreate={this.handleDislikesAddClick}
+            onDestroy={this.handleDislikeDestroy} />
         </div>
       )
     },
@@ -110,7 +75,7 @@ var Friend = (function () {
       this.props.friend.name = event.target.value
       this.setState(this.getInitialState())
     },
-    handleDatesAddClick: function (event) {
+    handleDatesAddClick: function () {
       var now = new Date()
       var year = now.getFullYear()
       var month = now.getMonth() + 1
@@ -137,15 +102,11 @@ var Friend = (function () {
       this.props.friend.dates[index].label = event.target.value
       this.setState(this.getInitialState())
     },
-    handleDateDestroy: function (event) {
-      var index = event.target.dataset.datesIndex
-      if (typeof index === 'undefined') {
-        index = event.target.parentNode.dataset.datesIndex
-      }
+    handleDateDestroy: function (index) {
       this.props.friend.dates.splice(index, 1)
       this.setState(this.getInitialState())
     },
-    handleLikesAddClick: function (event) {
+    handleLikesAddClick: function () {
       var newLike = ''
       if (Array.isArray(this.props.friend.likes)) {
         this.props.friend.likes.unshift(newLike)
@@ -159,15 +120,11 @@ var Friend = (function () {
       this.props.friend.likes[index] = event.target.value
       this.setState(this.getInitialState())
     },
-    handleLikeDestroy: function (event) {
-      var index = event.target.dataset.likesIndex
-      if (typeof index === 'undefined') {
-        index = event.target.parentNode.dataset.likesIndex
-      }
+    handleLikeDestroy: function (index) {
       this.props.friend.likes.splice(index, 1)
       this.setState(this.getInitialState())
     },
-    handleDislikesAddClick: function (event) {
+    handleDislikesAddClick: function () {
       var newDislike = ''
       if (Array.isArray(this.props.friend.dislikes)) {
         this.props.friend.dislikes.unshift(newDislike)
@@ -181,11 +138,7 @@ var Friend = (function () {
       this.props.friend.dislikes[index] = event.target.value
       this.setState(this.getInitialState())
     },
-    handleDislikeDestroy: function (event) {
-      var index = event.target.dataset.dislikesIndex
-      if (typeof index === 'undefined') {
-        index = event.target.parentNode.dataset.dislikesIndex
-      }
+    handleDislikeDestroy: function (index) {
       this.props.friend.dislikes.splice(index, 1)
       this.setState(this.getInitialState())
     }
