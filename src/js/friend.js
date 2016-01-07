@@ -117,9 +117,14 @@ var Friend = (function () {
       var day = now.getDate()
       var fix = function (d) { return (d < 10 ? '0' + d : '' + d) }
       var nowAsString = year + '-' + fix(month) + '-' + fix(day)
-      this.props.friend.dates.unshift({
+      var newDate = {
         date: nowAsString
-      })
+      }
+      if (Array.isArray(this.props.friend.dates)) {
+        this.props.friend.dates.unshift(newDate)
+      } else {
+        this.props.friend.dates = [newDate]
+      }
       this.setState(this.getInitialState())
     },
     handleDateCalendarChange: function (event) {
@@ -142,7 +147,11 @@ var Friend = (function () {
     },
     handleLikesAddClick: function (event) {
       var newLike = ''
-      this.props.friend.likes.unshift(newLike)
+      if (Array.isArray(this.props.friend.likes)) {
+        this.props.friend.likes.unshift(newLike)
+      } else {
+        this.props.friend.likes = [newLike]
+      }
       this.setState(this.getInitialState())
     },
     handleLikeLabelChange: function (event) {
@@ -160,7 +169,11 @@ var Friend = (function () {
     },
     handleDislikesAddClick: function (event) {
       var newDislike = ''
-      this.props.friend.dislikes.unshift(newDislike)
+      if (Array.isArray(this.props.friend.dislikes)) {
+        this.props.friend.dislikes.unshift(newDislike)
+      } else {
+        this.props.friend.dislikes = [newDislike]
+      }
       this.setState(this.getInitialState())
     },
     handleDislikeLabelChange: function (event) {
