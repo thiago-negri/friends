@@ -1,4 +1,5 @@
 var fran = {
+  id: 0,
   name: 'Franciani Borghezan Negri',
   dates: [
     {
@@ -23,6 +24,7 @@ var fran = {
 }
 
 var carol = {
+  id: 1,
   name: 'Caroline Milbratz',
   dislikes: [
     'Salsinha'

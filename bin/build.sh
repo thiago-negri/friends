@@ -1,5 +1,11 @@
 #!/bin/bash
 
+# Clean old files
+rm -rf www/js
+rm -rf www/css
+mkdir www/js
+mkdir www/css
+
 # Compile SCSS files
 cd src/css
 for input_file in *.scss

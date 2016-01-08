@@ -3,18 +3,19 @@ var Friend = (function () {
 
   return React.createClass({
     getInitialState: function () {
+      var friend = this.props.app.friendStore.findById(this.props.id)
       var state = {
-        name: this.props.friend.name,
-        dates: safeMap(this.props.friend.dates, function (date) {
+        name: friend.name,
+        dates: safeMap(friend.dates, function (date) {
           return {
             date: date.date,
             label: date.label
           }
         }),
-        likes: safeMap(this.props.friend.likes, function (like) {
+        likes: safeMap(friend.likes, function (like) {
           return like
         }),
-        dislikes: safeMap(this.props.friend.dislikes, function (dislike) {
+        dislikes: safeMap(friend.dislikes, function (dislike) {
           return dislike
         })
       }
@@ -72,74 +73,105 @@ var Friend = (function () {
       )
     },
     handleNameChange: function (event) {
-      this.props.friend.name = event.target.value
-      this.setState(this.getInitialState())
+      this.props.app.dispatcher.dispatch({
+        key: 'EDIT_FRIEND',
+        id: this.props.id,
+        intention: 'CHANGE_NAME',
+        value: event.target.value
+      })
     },
     handleDatesAddClick: function () {
-      var now = new Date()
-      var year = now.getFullYear()
-      var month = now.getMonth() + 1
-      var day = now.getDate()
-      var fix = function (d) { return (d < 10 ? '0' + d : '' + d) }
-      var nowAsString = year + '-' + fix(month) + '-' + fix(day)
-      var newDate = {
-        date: nowAsString
-      }
-      if (Array.isArray(this.props.friend.dates)) {
-        this.props.friend.dates.unshift(newDate)
-      } else {
-        this.props.friend.dates = [newDate]
-      }
-      this.setState(this.getInitialState())
+      this.props.app.dispatcher.dispatch({
+        key: 'EDIT_FRIEND',
+        id: this.props.id,
+        intention: 'CREATE_DATE'
+      })
     },
     handleDateCalendarChange: function (event) {
       var index = event.target.dataset.datesIndex
-      this.props.friend.dates[index].date = event.target.value
-      this.setState(this.getInitialState())
+      this.props.app.dispatcher.dispatch({
+        key: 'EDIT_FRIEND',
+        id: this.props.id,
+        intention: 'CHANGE_DATE_CALENDAR',
+        index: index,
+        value: event.target.value
+      })
     },
     handleDateLabelChange: function (event) {
       var index = event.target.dataset.datesIndex
-      this.props.friend.dates[index].label = event.target.value
-      this.setState(this.getInitialState())
+      this.props.app.dispatcher.dispatch({
+        key: 'EDIT_FRIEND',
+        id: this.props.id,
+        intention: 'CHANGE_DATE_LABEL',
+        index: index,
+        value: event.target.value
+      })
     },
     handleDateDestroy: function (index) {
-      this.props.friend.dates.splice(index, 1)
-      this.setState(this.getInitialState())
+      this.props.app.dispatcher.dispatch({
+        key: 'EDIT_FRIEND',
+        id: this.props.id,
+        intention: 'DESTROY_DATE',
+        index: index
+      })
     },
     handleLikesAddClick: function () {
-      var newLike = ''
-      if (Array.isArray(this.props.friend.likes)) {
-        this.props.friend.likes.unshift(newLike)
-      } else {
-        this.props.friend.likes = [newLike]
-      }
-      this.setState(this.getInitialState())
+      this.props.app.dispatcher.dispatch({
+        key: 'EDIT_FRIEND',
+        id: this.props.id,
+        intention: 'CREATE_LIKE'
+      })
     },
     handleLikeLabelChange: function (event) {
       var index = event.target.dataset.likesIndex
-      this.props.friend.likes[index] = event.target.value
-      this.setState(this.getInitialState())
+      this.props.app.dispatcher.dispatch({
+        key: 'EDIT_FRIEND',
+        id: this.props.id,
+        intention: 'CHANGE_LIKE_LABEL',
+        index: index,
+        value: event.target.value
+      })
     },
     handleLikeDestroy: function (index) {
-      this.props.friend.likes.splice(index, 1)
-      this.setState(this.getInitialState())
+      this.props.app.dispatcher.dispatch({
+        key: 'EDIT_FRIEND',
+        id: this.props.id,
+        intention: 'DESTROY_LIKE',
+        index: index
+      })
     },
     handleDislikesAddClick: function () {
-      var newDislike = ''
-      if (Array.isArray(this.props.friend.dislikes)) {
-        this.props.friend.dislikes.unshift(newDislike)
-      } else {
-        this.props.friend.dislikes = [newDislike]
-      }
-      this.setState(this.getInitialState())
+      this.props.app.dispatcher.dispatch({
+        key: 'EDIT_FRIEND',
+        id: this.props.id,
+        intention: 'CREATE_DISLIKE'
+      })
     },
     handleDislikeLabelChange: function (event) {
       var index = event.target.dataset.dislikesIndex
-      this.props.friend.dislikes[index] = event.target.value
-      this.setState(this.getInitialState())
+      this.props.app.dispatcher.dispatch({
+        key: 'EDIT_FRIEND',
+        id: this.props.id,
+        intention: 'CHANGE_DISLIKE_LABEL',
+        index: index,
+        value: event.target.value
+      })
     },
     handleDislikeDestroy: function (index) {
-      this.props.friend.dislikes.splice(index, 1)
+      this.props.app.dispatcher.dispatch({
+        key: 'EDIT_FRIEND',
+        id: this.props.id,
+        intention: 'DESTROY_DISLIKE',
+        index: index
+      })
+    },
+    componentDidMount: function () {
+      this.props.app.friendStore.observe(this._onChange)
+    },
+    componentWillUnmount: function () {
+      this.props.app.friendStore.unobserve(this._onChange)
+    },
+    _onChange: function () {
       this.setState(this.getInitialState())
     }
   })
