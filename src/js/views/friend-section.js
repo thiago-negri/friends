@@ -19,7 +19,7 @@ var FriendSection = (function () {
         return (
           <li data-index={index}>
             {item}
-            <button type='button' onClick={this.handleDestroyClick}>
+            <button type='button' onClick={this.handleDestroyClick} className='destroy'>
               <i className='fa fa-trash-o'></i>
             </button>
           </li>

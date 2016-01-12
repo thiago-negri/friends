@@ -5,3 +5,100 @@ input.friendName {
   font-weight: bold;
   font-size: 1.3em;
 }
+
+#app {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  right: 0;
+  left: 0;
+}
+
+.layoutHeader {
+  padding: 8px;
+  background-color: #9FA0A4;
+  color: #fff;
+}
+
+.layoutBody {
+  padding: 8px;
+}
+
+.list {
+  clear: both;
+}
+
+.list > h3 {
+  padding-bottom: 8px;
+  margin-bottom: 8px;
+  margin-top: 16px;
+  padding-left: 30px;
+  border-bottom: 1px solid #ccc;
+}
+
+button.create {
+  float: left;
+  margin-top: -42px;
+  height: 30px;
+  width: 25px;
+  background-color: transparent;
+  color: green;
+}
+
+li {
+  margin-bottom: 8px;
+  padding-left: 30px;
+}
+
+button.destroy {
+  position: absolute;
+  float: right;
+  height: 30px;
+  width: 25px;
+  background-color: transparent;
+  color: red;
+  font-size: 100%;
+}
+
+button.friendLink {
+  background-color: transparent;
+  color: blue;
+  height: 30px;
+  width: 100%;
+  text-align: left;
+}
+
+button.back {
+  float: left;
+  height: 40px;
+  width: 50px;
+  background-color: transparent;
+  color: blue;
+}
+
+button.back i {
+  margin-right: 8px;
+}
+
+h1 {
+  text-align: center;
+  margin-right: 50px;
+  margin-left: 50px;
+}
+
+li {
+  margin-right: 50px;
+}
+
+input {
+  height: 30px;
+  width: 100%;
+}
+
+.friendDate {
+  clear: both;
+  display: inline-block;
+  padding-bottom: 8px;
+  padding-top: 8px;
+  border-bottom: 1px solid #ddd;
+}

@@ -27,9 +27,9 @@ var FriendList = (function () {
       var index = 0
       var friends = safeMap(this.state.friends, function (friend) {
         return (
-          <a key={friend.id} href='#' onClick={this.handleClick} data-friend-id={friend.id}>
+          <button type='button' className='friendLink' key={friend.id} onClick={this.handleClick} data-friend-id={friend.id}>
             {friend.name}
-          </a>
+          </button>
         )
       }.bind(this))
 

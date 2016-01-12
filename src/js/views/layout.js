@@ -16,7 +16,7 @@ var Layout = (function () {
       var backButton
       if (typeof this.props.onBack === 'function') {
         backButton = (
-          <button type='button' onClick={this.handleBackClick}>
+          <button type='button' onClick={this.handleBackClick} className='back'>
             <i className='fa fa-chevron-left'></i>
             Back
           </button>
