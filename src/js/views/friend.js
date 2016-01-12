@@ -169,6 +169,7 @@ var Friend = (function () {
     componentDidMount: function () {
       var friendNameInput = React.findDOMNode(this.refs.friendNameInput)
       friendNameInput.focus()
+      friendNameInput.select()
 
       this.props.app.friendStore.observe(this._onChange)
     },
