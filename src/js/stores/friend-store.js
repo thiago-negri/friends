@@ -60,7 +60,8 @@ function FriendStore () {
   function _createFriend () {
     var id = _lastId + 1
     var newFriend = {
-      id: id
+      id: id,
+      name: 'John Doe'
     }
     _friends.push(newFriend)
     _lastId = id
