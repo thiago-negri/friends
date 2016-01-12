@@ -11,8 +11,26 @@ function FriendStore () {
   this.handle = handle
 
   // Private state
-  var _friends = [fran, carol]
-  var _lastId = carol.id
+  var _friends = (function () {
+    var friends = localStorage.getItem('friends')
+    if (friends) {
+      try {
+        return JSON.parse(friends)
+      } catch (e) {
+        localStorage.setItem('friends', '[]')
+      }
+    }
+    return []
+  }())
+  var _lastId = (function () {
+    var lastId = 0
+    _friends.forEach(function (friend) {
+      if (friend.id > lastId) {
+        lastId = friend.id
+      }
+    })
+    return lastId
+  }())
 
   // Implementation details
   function all () {
@@ -47,6 +65,10 @@ function FriendStore () {
     }
   }
 
+  function _save () {
+    localStorage.setItem('friends', JSON.stringify(_friends))
+  }
+
   function _indexById (id) {
     var index
     for (index = 0; index < _friends.length; index += 1) {
@@ -66,6 +88,7 @@ function FriendStore () {
     }
     _friends.push(newFriend)
     _lastId = id
+    _save()
     _base.notify()
   }
 
@@ -129,6 +152,7 @@ function FriendStore () {
         friend.dislikes.splice(action.index, 1)
         break
     }
+    _save()
     _base.notify()
   }
 
@@ -136,6 +160,7 @@ function FriendStore () {
     var id = action.id
     var index = _indexById(id)
     _friends.splice(index, 1)
+    _save()
     _base.notify()
   }
 }
