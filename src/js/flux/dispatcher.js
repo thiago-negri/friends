@@ -22,8 +22,6 @@ function Dispatcher () {
   function dispatch (action) {
     var key
 
-    console.log('Dispatching', action)
-
     if (_actionInFlight !== null) {
       throw 'You should not double dispatch.'
     }
