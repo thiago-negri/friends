@@ -73,7 +73,7 @@ function FriendStore () {
     var id = action.id
     var friend = findById(id)
     if (friend.isNew) {
-      friend.isNew = false
+      delete friend.isNew
     }
     switch (action.intention) {
       case 'CHANGE_NAME':
