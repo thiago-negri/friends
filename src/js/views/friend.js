@@ -59,7 +59,8 @@ var Friend = (function () {
         <div className='friend'>
           <input className='friendName' type='text'
             value={this.state.name}
-            onChange={this.handleNameChange} />
+            onChange={this.handleNameChange}
+            ref='friendNameInput' />
           <FriendSection title='Dates' icon='fa fa-calendar'
             items={dates} onCreate={this.handleDatesAddClick}
             onDestroy={this.handleDateDestroy} />
@@ -166,6 +167,9 @@ var Friend = (function () {
       })
     },
     componentDidMount: function () {
+      var friendNameInput = React.findDOMNode(this.refs.friendNameInput)
+      friendNameInput.focus()
+
       this.props.app.friendStore.observe(this._onChange)
     },
     componentWillUnmount: function () {
