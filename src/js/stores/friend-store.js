@@ -61,7 +61,8 @@ function FriendStore () {
     var id = _lastId + 1
     var newFriend = {
       id: id,
-      name: 'John Doe'
+      name: 'John Doe',
+      isNew: true
     }
     _friends.push(newFriend)
     _lastId = id
@@ -71,6 +72,9 @@ function FriendStore () {
   function _editFriend (action) {
     var id = action.id
     var friend = findById(id)
+    if (friend.isNew) {
+      friend.isNew = false
+    }
     switch (action.intention) {
       case 'CHANGE_NAME':
         friend.name = action.value

@@ -17,7 +17,8 @@ var Friend = (function () {
         }),
         dislikes: safeMap(friend.dislikes, function (dislike) {
           return dislike
-        })
+        }),
+        shouldFocusOnName: friend.isNew
       }
       return state
     },
@@ -167,9 +168,12 @@ var Friend = (function () {
       })
     },
     componentDidMount: function () {
-      var friendNameInput = React.findDOMNode(this.refs.friendNameInput)
-      friendNameInput.focus()
-      friendNameInput.select()
+      var friendNameInput
+      if (this.state.shouldFocusOnName) {
+        friendNameInput = React.findDOMNode(this.refs.friendNameInput)
+        friendNameInput.focus()
+        friendNameInput.select()
+      }
 
       this.props.app.friendStore.observe(this._onChange)
     },
