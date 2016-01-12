@@ -170,7 +170,7 @@ var Friend = (function () {
     componentDidMount: function () {
       var friendNameInput
       if (this.state.shouldFocusOnName) {
-        friendNameInput = React.findDOMNode(this.refs.friendNameInput)
+        friendNameInput = ReactDOM.findDOMNode(this.refs.friendNameInput)
         friendNameInput.focus()
         friendNameInput.select()
       }
