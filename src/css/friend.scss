@@ -1,4 +1,18 @@
+.friendNameContainer {
+  position: fixed;
+  top: 50px;
+  right: 0;
+  left: 0;
+  height: 50px;
+  z-index: 9999;
+}
+
+.friend {
+  margin-top: 50px;
+}
+
 input.friendName {
+  height: 50px;
   border-bottom: 1px solid #44e;
   padding: 6px;
   margin-bottom: 8px;

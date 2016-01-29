@@ -58,10 +58,12 @@ var Friend = (function () {
 
       return (
         <div className='friend'>
-          <input className='friendName' type='text'
-            value={this.state.name}
-            onChange={this.handleNameChange}
-            ref='friendNameInput' />
+          <div className='friendNameContainer'>
+            <input className='friendName' type='text'
+              value={this.state.name}
+              onChange={this.handleNameChange}
+              ref='friendNameInput' />
+          </div>
           <FriendSection title='Dates' icon='fa fa-calendar'
             items={dates} onCreate={this.handleDatesAddClick}
             onDestroy={this.handleDateDestroy} />
