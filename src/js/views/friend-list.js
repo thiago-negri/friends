@@ -34,7 +34,7 @@ var FriendList = (function () {
       }.bind(this))
 
       return (
-        <FriendSection icon='' title='Friends'
+        <FriendSection icon='fa fa-users' title='Friends'
           items={friends}
           onCreate={this.handleCreate}
           onDestroy={this.handleDestroy} />
