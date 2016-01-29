@@ -18,18 +18,20 @@ var Friend = (function () {
         dislikes: safeMap(friend.dislikes, function (dislike) {
           return dislike
         }),
-        shouldFocusOnName: friend.isNew
+        focus: friend.focus
       }
       return state
     },
     render: function () {
       var dates = safeMap(this.state.dates, function (date, index) {
+        var refName = 'dates' + index
         return (
           <div className='friendDate'>
             <input type='date' className='friendDateCalendar' value={date.date}
               placeholder='1989-08-27'
               onChange={this.handleDateCalendarChange}
-              data-dates-index={index} />
+              data-dates-index={index}
+              ref={refName} />
             <input type='text' className='friendDateLabel' value={date.label}
               placeholder='Birthdate'
               onChange={this.handleDateLabelChange}
@@ -39,20 +41,24 @@ var Friend = (function () {
       }.bind(this))
 
       var likes = safeMap(this.state.likes, function (like, index) {
+        var refName = 'likes' + index
         return (
           <input type='text' className='friendLikeLabel' value={like}
             placeholder='Icecream'
             onChange={this.handleLikeLabelChange}
-            data-likes-index={index} />
+            data-likes-index={index}
+            ref={refName} />
         )
       }.bind(this))
 
       var dislikes = safeMap(this.state.dislikes, function (dislike, index) {
+        var refName = 'dislikes' + index
         return (
           <input type='text' className='friendDislikeLabel' value={dislike}
             placeholder='Smoking'
             onChange={this.handleDislikeLabelChange}
-            data-dislikes-index={index} />
+            data-dislikes-index={index}
+            ref={refName} />
         )
       }.bind(this))
 
@@ -62,7 +68,7 @@ var Friend = (function () {
             <input className='friendName' type='text'
               value={this.state.name}
               onChange={this.handleNameChange}
-              ref='friendNameInput' />
+              ref='name' />
           </div>
           <FriendSection title='Dates' icon='fa fa-calendar'
             items={dates} onCreate={this.handleDatesAddClick}
@@ -170,17 +176,24 @@ var Friend = (function () {
       })
     },
     componentDidMount: function () {
-      var friendNameInput
-      if (this.state.shouldFocusOnName) {
-        friendNameInput = ReactDOM.findDOMNode(this.refs.friendNameInput)
-        friendNameInput.focus()
-        friendNameInput.select()
-      }
-
+      this._setFocus()
       this.props.app.friendStore.observe(this._onChange)
+    },
+    componentDidUpdate: function () {
+      this._setFocus()
     },
     componentWillUnmount: function () {
       this.props.app.friendStore.unobserve(this._onChange)
+    },
+    _setFocus: function () {
+      var input
+      if (this.state.focus) {
+        input = ReactDOM.findDOMNode(this.refs[this.state.focus])
+        if (input) {
+          input.focus()
+          input.select()
+        }
+      }
     },
     _onChange: function () {
       this.setState(this.getInitialState())

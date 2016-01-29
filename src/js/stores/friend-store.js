@@ -84,7 +84,7 @@ function FriendStore () {
     var newFriend = {
       id: id,
       name: 'John Doe',
-      isNew: true
+      focus: 'name'
     }
     _friends.push(newFriend)
     _lastId = id
@@ -95,8 +95,8 @@ function FriendStore () {
   function _editFriend (action) {
     var id = action.id
     var friend = findById(id)
-    if (friend.isNew) {
-      delete friend.isNew
+    if (friend.focus) {
+      delete friend.focus
     }
     switch (action.intention) {
       case 'CHANGE_NAME':
@@ -107,6 +107,7 @@ function FriendStore () {
         if (!Array.isArray(friend.dates)) {
           friend.dates = []
         }
+        friend.focus = 'dates0'
         friend.dates.unshift({})
         break
 
@@ -126,6 +127,7 @@ function FriendStore () {
         if (!Array.isArray(friend.likes)) {
           friend.likes = []
         }
+        friend.focus = 'likes0'
         friend.likes.unshift('')
         break
 
@@ -141,6 +143,7 @@ function FriendStore () {
         if (!Array.isArray(friend.dislikes)) {
           friend.dislikes = []
         }
+        friend.focus = 'dislikes0'
         friend.dislikes.unshift('')
         break
 
