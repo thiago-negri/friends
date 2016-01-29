@@ -15,12 +15,20 @@ input.friendName {
 }
 
 .layoutHeader {
+  position: fixed;
+  top: 0;
+  right: 0;
+  left: 0;
+  height: 50px;
   padding: 8px;
   background-color: #9FA0A4;
   color: #fff;
+  z-index: 9999;
 }
 
 .layoutBody {
+  margin-top: 50px;
+  margin-bottom: 50px;
   padding: 8px;
 }
 
