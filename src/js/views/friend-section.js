@@ -20,7 +20,7 @@ var FriendSection = (function () {
           <li data-index={index}>
             {item}
             <button type='button' onClick={this.handleDestroyClick} className='destroy'>
-              <i className='fa fa-trash-o'></i>
+              <i className='fa fa-minus-circle'></i>
             </button>
           </li>
         )
